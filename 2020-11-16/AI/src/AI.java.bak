@@ -20,8 +20,7 @@ public class AI extends MIDlet
 }
 class MainCanvas extends Canvas
 {
-	int x,y;
-	Image downImg,leftImg,upImg,ringhtImg,currentImg,downMove1,downMove2,upMove1,upMove2,leftMove1,leftMove2,rightMove1,rightMove2;
+	Image downImg,leftImg,upImg,ringhtImg,currentImg;
 	public MainCanvas(){
 		try
 			{
@@ -29,38 +28,23 @@ class MainCanvas extends Canvas
 			leftImg=Image.createImage("/sayo12.png");
 			upImg=Image.createImage("/sayo14.png");
 			ringhtImg=Image.createImage("/sayo16.png");
-			downMove1=Image.createImage("/sayo00.png");
-			downMove2=Image.createImage("/sayo20.png");
-			upMove1=Image.createImage("/sayo04.png");
-			upMove2=Image.createImage("/sayo24.png");
-			leftMove1=Image.createImage("/sayo02.png");
-			leftMove2=Image.createImage("/sayo22.png");
-			rightMove1=Image.createImage("/sayo06.png");
-			rightMove2=Image.createImage("/sayo26.png");
 			currentImg=downImg;
 			}
 			catch(IOException e)
 		{
 			e.printStackTrace();
 		}
-		x=120;
-		y=100;
 
 	}
 	public void paint(Graphics g){
 		g.setColor(0,0,0);
 		g.fillRect(0,0,getWidth(),getHeight());
-		g.drawImage(currentImg,x,y,0);
+		g.drawImage(currentImg,120,120,0);
 	}
 	public void keyPressed(int keyCode){
 		int action=getGameAction(keyCode);
 		if(action==LEFT){
 			currentImg=leftImg;
-			x=x-1;
-			if(x%2=0)
-				currentImg=leftMove1;
-			else
-				currentImg=leftMove2;
 		}
 		if(action==UP){
 			currentImg=upImg;
