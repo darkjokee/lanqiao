@@ -20,26 +20,20 @@ public class AI extends MIDlet
 }
 class MainCanvas extends Canvas
 {
-	int x,y;
-	Image downImg,leftImg,upImg,rightImg,currentImg,downMove1,downMove2,upMove1,upMove2,leftMove1,leftMove2,rightMove1,rightMove2;
+	int x,y,i,j;
+	Image currentImg;
+	Image [][]heroImg=new Image[3][7];
 	public MainCanvas(){
 		try
-			{
-			downImg=Image.createImage("/sayo10.png");
-			leftImg=Image.createImage("/sayo12.png");
-			upImg=Image.createImage("/sayo14.png");
-			rightImg=Image.createImage("/sayo16.png");
-			downMove1=Image.createImage("/sayo00.png");
-			downMove2=Image.createImage("/sayo20.png");
-			upMove1=Image.createImage("/sayo04.png");
-			upMove2=Image.createImage("/sayo24.png");
-			leftMove1=Image.createImage("/sayo02.png");
-			leftMove2=Image.createImage("/sayo22.png");
-			rightMove1=Image.createImage("/sayo06.png");
-			rightMove2=Image.createImage("/sayo26.png");
-			currentImg=downImg;
+		{
+		for(i=0;i<3;i++)
+			for(j=0;j<4;j++){
+				heroImg[i][j]=Image.createImage("/sayo"+i+""+j+".png");
 			}
-			catch(IOException e)
+			currentImg=heroImg[1][0];
+		}
+		
+		catch(IOException e)
 		{
 			e.printStackTrace();
 		}
@@ -47,45 +41,58 @@ class MainCanvas extends Canvas
 		y=100;
 
 	}
+	public void keyReleased(int keyCode){
+		int action=getGameAction(keyCode);
+		if(action==LEFT){
+			currentImg=heroImg[1][1];
+		}
+		if(action==RIGHT){
+			currentImg=heroImg[1][3];
+		}
+		if(action==UP){
+			currentImg=heroImg[1][2];
+		}
+		if(action==DOWN){
+			currentImg=heroImg[1][0];
+		}
+		repaint();
+	}
 	public void paint(Graphics g){
 		g.setColor(0,0,0);
 		g.fillRect(0,0,getWidth(),getHeight());
 		g.drawImage(currentImg,x,y,0);
 	}
+
 	public void keyPressed(int keyCode){
 		int action=getGameAction(keyCode);
 		if(action==LEFT){
-			currentImg=leftImg;
 			x=x-5;
 			if(x%2==0)
-				currentImg=leftMove1;
+				currentImg=heroImg[0][1];
 			else
-				currentImg=leftMove2;
+				currentImg=heroImg[2][1];
 		}
 
 		if(action==UP){
-			currentImg=upImg;
 			y=y-9;
 			if(y%2==0)
-				currentImg=upMove1;
+				currentImg=heroImg[0][2];
 			else
-				currentImg=upMove2;
+				currentImg=heroImg[2][2];
 		}
 		if(action==RIGHT){
-			currentImg=rightImg;
 			x=x+5;
 			if(x%2==0)
-				currentImg=rightMove1;
+				currentImg=heroImg[0][3];
 			else
-				currentImg=rightMove2;
+				currentImg=heroImg[2][3];
 		}
 		if(action==DOWN){
-			currentImg=downImg;
 			y=y+9;
 			if(y%2==0)
-				currentImg=downMove1;
+				currentImg=heroImg[0][0];
 			else
-				currentImg=downMove2;
+				currentImg=heroImg[2][0];
 		}
 		repaint();
 	}

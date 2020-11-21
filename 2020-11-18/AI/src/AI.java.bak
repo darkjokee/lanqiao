@@ -20,40 +20,64 @@ public class AI extends MIDlet
 }
 class MainCanvas extends Canvas
 {
-	Image downImg,leftImg,upImg,ringhtImg,currentImg;
+	int x,y,i,j;
+	Image currentImg;
+	Image [][]heroImg=new Image[3][7];
 	public MainCanvas(){
 		try
-			{
-			downImg=Image.createImage("/sayo10.png");
-			leftImg=Image.createImage("/sayo12.png");
-			upImg=Image.createImage("/sayo14.png");
-			ringhtImg=Image.createImage("/sayo16.png");
-			currentImg=downImg;
+		{
+		for(i=0;i<3;i++)
+			for(j=0;j<4;j++){
+				heroImg[i][j]=Image.createImage("/sayo"+i+""+j+".png");
 			}
-			catch(IOException e)
+			currentImg=heroImg[1][0];
+		}
+		
+		catch(IOException e)
 		{
 			e.printStackTrace();
 		}
+		x=120;
+		y=100;
 
 	}
+
 	public void paint(Graphics g){
 		g.setColor(0,0,0);
 		g.fillRect(0,0,getWidth(),getHeight());
-		g.drawImage(currentImg,120,120,0);
+		g.drawImage(currentImg,x,y,0);
 	}
+
 	public void keyPressed(int keyCode){
 		int action=getGameAction(keyCode);
 		if(action==LEFT){
-			currentImg=leftImg;
+			x=x-5;
+			if(x%2==0)
+				currentImg=heroImg[0][1];
+			else
+				currentImg=heroImg[2][1];
 		}
+
 		if(action==UP){
-			currentImg=upImg;
+			y=y-9;
+			if(y%2==0)
+				currentImg=heroImg[0][2];
+			else
+				currentImg=heroImg[2][2];
 		}
 		if(action==RIGHT){
-			currentImg=ringhtImg;
+			x=x+5;
+			if(x%2==0)
+				currentImg=heroImg[0][3];
+			else
+				currentImg=heroImg[2][3];
 		}
 		if(action==DOWN){
-			currentImg=downImg;
+			y=y+9;
+			if(y%2==0)
+				currentImg=heroImg[0][0];
+			else
+				currentImg=heroImg[2][0];
 		}
 		repaint();
 	}
