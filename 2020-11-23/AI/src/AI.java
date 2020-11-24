@@ -1,6 +1,7 @@
 import javax.microedition.lcdui.*;
 import javax.microedition.midlet.*;
 import java.io.*;
+import java.util.*;
 
 public class AI extends MIDlet
 {
@@ -26,6 +27,7 @@ class MainCanvas extends Canvas implements Runnable
 	Image currentImg;
 	Image bossImg;
 	Image [][]heroImg=new Image[3][7];
+	Random rd=new Random();
 
 	public void currentImg(int a,int b){
 		currentImg=heroImg[a][b];
@@ -60,6 +62,8 @@ class MainCanvas extends Canvas implements Runnable
 	}
 	public void run(){
 		while(true){
+			int rdNumber=rd.nextInt(10);
+
 			try
 			{
 				Thread.sleep(200);   //ÆÁÄ»Ë¢ÐÂÂÊ
@@ -68,15 +72,17 @@ class MainCanvas extends Canvas implements Runnable
 			{
 				e.printStackTrace();
 			}
-			if(bossX<heroX)
-				bossX+=2;
-			else
-				bossX-=2;
-			if(bossY<heroY)
-				bossY+=3;
-			else
-				bossY-=3;
-			repaint();
+			if (rdNumber%3==0){
+				if(bossX<heroX)
+					bossX+=2;
+				else
+					bossX-=2;
+				if(bossY<heroY)
+					bossY+=3;
+				else
+					bossY-=3;
+				repaint();
+				}
 		}
 	}
 	public void keyReleased(int keyCode){
